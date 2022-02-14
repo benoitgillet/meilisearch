@@ -17,6 +17,7 @@ use actix_web::error::JsonPayloadError;
 use analytics::Analytics;
 use error::PayloadError;
 use http::header::CONTENT_TYPE;
+use meilisearch_lib::options::MaxMemory;
 pub use option::Opt;
 
 use actix_web::{web, HttpRequest};
@@ -61,9 +62,12 @@ pub fn setup_meilisearch(opt: &Opt) -> anyhow::Result<MeiliSearch> {
         meilisearch.set_schedule_snapshot();
     }
 
+    let mut indexer_options = opt.indexer_options.clone();
+    indexer_options.max_memory = <MaxMemory as std::str::FromStr>::from_str(&opt.max_memory).unwrap();
+
     meilisearch.build(
         opt.db_path.clone(),
-        opt.indexer_options.clone(),
+        indexer_options,
         opt.scheduler_options.clone(),
     )
 }

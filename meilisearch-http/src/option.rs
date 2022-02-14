@@ -150,6 +150,9 @@ pub struct Opt {
 
     #[clap(flatten)]
     pub scheduler_options: SchedulerConfig,
+
+    #[clap(long, env = "MEILI_MAX_MEMORY", default_value = "1342177280")]
+    pub max_memory: String,
 }
 
 impl Opt {
