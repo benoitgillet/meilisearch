@@ -157,5 +157,6 @@ pub fn default_settings(dir: impl AsRef<Path>) -> Opt {
         },
         log_level: "off".into(),
         scheduler_options: meilisearch_lib::options::SchedulerConfig::default(),
+        max_memory : "1342177280".to_string()
     }
 }
